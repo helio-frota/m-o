@@ -1,0 +1,14 @@
+[package]
+name = "m-o"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+actix-web = "4"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "registry", "std", "fmt"] }
+tracing-opentelemetry = "0.28"
+opentelemetry = "0.27"
+opentelemetry-otlp = "0.27"
+opentelemetry_sdk = { version = "0.27", features = ["rt-tokio"] }
+tokio = "1.43.0"
