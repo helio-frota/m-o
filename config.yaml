@@ -13,7 +13,6 @@ processors:
 
 service:
   pipelines:
-    traces:
+    metrics:
       receivers: [otlp]
-      processors: [batch]
-      exporters: [debug, otlp]
+      exporters: [debug]
