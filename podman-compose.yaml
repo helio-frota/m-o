@@ -1,12 +1,12 @@
 services:
-  # prometheus:
-  #   container_name: prometheus
-  #   image: prom/prometheus:latest
-  #   volumes:
-  #     - ./prometheus.yaml:/etc/prometheus/prometheus.yml:z
-  #   ports:
-  #     - "9090:9090"
-  #     - "9464:9464"
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus.yaml:/etc/prometheus/prometheus.yml:z
+    ports:
+      - "9090:9090"
+      - "9464:9464"
   collector:
     image: ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector:latest
     command: ["--config=/otel-collector-config.yaml"]
@@ -15,4 +15,3 @@ services:
     ports:
       - "4317:4317"
       - "8888:8888"
-    # depends_on: [prometheus]

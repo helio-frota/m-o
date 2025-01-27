@@ -3,19 +3,12 @@ receivers:
     protocols:
       grpc:
         endpoint: "0.0.0.0:4317"
-  # prometheus:
-  #   config:
-  #     scrape_configs:
-  #       - job_name: otel-collector
-  #         scrape_interval: 5s
-  #         static_configs:
-  #         - targets: [localhost:8888]
 
 exporters:
   debug:
     verbosity: detailed
-  # prometheus:
-  #   endpoint: "0.0.0.0:9464"
+  prometheus:
+    endpoint: "0.0.0.0:9464"
 
 processors:
   batch: {}
@@ -24,4 +17,4 @@ service:
   pipelines:
     metrics:
       receivers: [otlp]
-      exporters: [debug]
+      exporters: [prometheus, debug]
