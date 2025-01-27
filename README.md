@@ -306,3 +306,7 @@ collector-1  | Buckets #14, Count: 0
 collector-1  | Buckets #15, Count: 0
 collector-1  |  {"kind": "exporter", "data_type": "metrics", "name": "debug"}
 ```
+
+## Prometheus
+
+![prometheus](1.png)
