@@ -310,3 +310,11 @@ collector-1  |  {"kind": "exporter", "data_type": "metrics", "name": "debug"}
 ## Prometheus
 
 ![prometheus](1.png)
+
+## Custom metrics
+
+
+![collector](3.png)
+
+![prometheus2](2.png)
+

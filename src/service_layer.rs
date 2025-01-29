@@ -1,3 +1,4 @@
+use opentelemetry::KeyValue;
 use tokio::time::{sleep, Duration};
 
 use crate::db_layer::db_stuff;
@@ -9,7 +10,14 @@ pub async fn service_stuff() {
         "Total calls of service_stuff function",
     );
 
-    counter.add(1, &[]);
+    counter.add(
+        1,
+        &[
+            KeyValue::new("service", "service_stuff"),
+            KeyValue::new("status", "success"),
+        ],
+    );
+
     let duration = Duration::from_millis(300);
     sleep(duration).await;
     db_stuff().await;
