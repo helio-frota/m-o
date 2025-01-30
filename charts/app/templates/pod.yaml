@@ -1,0 +1,21 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: m-o
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: m-o
+  template:
+    metadata:
+      labels:
+        app: m-o
+    spec:
+      containers:
+        - name: m-o
+          image: docker.io/library/m-o:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080

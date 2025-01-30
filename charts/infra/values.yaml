@@ -1,0 +1,49 @@
+---
+prometheus:
+  enabled: true
+  alertmanager:
+    enabled: false
+  configmapReload:
+    prometheus:
+      enabled: false
+  kube-state-metrics:
+    enabled: false
+  prometheus-node-exporter:
+    enabled: false
+  prometheus-pushgateway:
+    enabled: false
+
+env:
+  - name: MY_POD_IP
+    valueFrom:
+      fieldRef:
+        fieldPath: status.hostIP
+
+opentelemetry-collector:
+  image:
+    repository: "otel/opentelemetry-collector-contrib"
+  enabled: true
+  nameOverride: otelcol
+  mode: deployment
+  presets:
+    kubernetesAttributes:
+      enabled: true
+  service:
+    type: ClusterIP
+  config:
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+            endpoint: ${env:MY_POD_IP}:4317
+    exporters:
+      otlp:
+        endpoint: "{{ .Release.Name }}-prometheus-server:9494"
+        tls:
+          insecure: true
+    service:
+      pipelines:
+        metrics:
+          exporters: [debug,otlp]
+          processors: [batch]
+          receivers: [otlp]

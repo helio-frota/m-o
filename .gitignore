@@ -1,1 +1,3 @@
 target
+opentelemetry-collector-*.tgz
+prometheus-26.0.0.tgz

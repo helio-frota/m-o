@@ -1,0 +1,9 @@
+dependencies:
+- name: opentelemetry-collector
+  repository: https://open-telemetry.github.io/opentelemetry-helm-charts
+  version: 0.111.1
+- name: prometheus
+  repository: https://prometheus-community.github.io/helm-charts
+  version: 26.0.0
+digest: sha256:5639b6cdac2baee13b305ed7baa944418dca2db54dffb807dfa62b5bd099f8c8
+generated: "2025-01-30T09:17:34.662533999-03:00"
