@@ -20,5 +20,7 @@ spec:
           ports:
             - containerPort: 8080
           env:
+            - name: RUST_LOG
+              value: "trace"
             - name: OTEL_EXPORTER_METRICS_ENDPOINT
               value: {{.Values.collector | quote}}
