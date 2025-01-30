@@ -365,9 +365,9 @@ kubectl get pods
 
 kubectl logs infra-otelcol-55db5d985f-ck6br
 
-2025-01-30T12:56:22.034Z    warn    grpc@v1.68.0/clientconn.go:1384 [core]
-[Channel #1 SubChannel #2]grpc: addrConn.createTransport failed to connect
-to {Addr: "infra-prometheus-server:9494", ServerName: "infra-prometheus-server:9494", }.
-Err: connection error: desc = "transport: Error while dialing: dial tcp 10.107.221.251:9494: i/o timeout"
+2025-01-30T14:08:59.365Z    warn    grpc@v1.68.0/clientconn.go:1384 [core]
+[Channel #1 SubChannel #2]grpc: addrConn.createTransport failed to connect to
+{Addr: "infra-prometheus-server:9464", ServerName: "infra-prometheus-server:9464", }.
+Err: connection error: desc = "error reading server preface: http2: frame too large"
 {"grpc_log": true}
 ```
