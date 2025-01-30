@@ -8,6 +8,9 @@ actix-web = "4"
 
 actix-web-opentelemetry = { version = "0.20", features = ["metrics"] }
 
+env_logger = "0.11"
+log = "0.4"
+
 opentelemetry = "0.27"
 opentelemetry-otlp = { version = "0.27", features = ["metrics"] }
 opentelemetry_sdk = { version = "0.27", features = ["metrics", "rt-tokio-current-thread"] }

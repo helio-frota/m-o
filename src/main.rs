@@ -20,6 +20,7 @@ async fn hello(_req: HttpRequest) -> &'static str {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    env_logger::init();
     // INIT.call_once(|| init_metrics("m-o"));
     init_metrics("m-o");
 
