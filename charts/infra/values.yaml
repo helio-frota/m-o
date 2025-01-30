@@ -58,7 +58,7 @@ prometheus:
   serverFiles:
     prometheus.yml:
       scrape_configs:
-        - job_name: 'otelcol'
+        - job_name: "infra-otelcol"
           honor_labels: true
           kubernetes_sd_configs:
             - role: pod
@@ -97,13 +97,13 @@ opentelemetry-collector:
           grpc:
             endpoint: ${env:MY_POD_IP}:4317
     exporters:
-      otlp:
+      otlphttp:
         endpoint: "{{ .Release.Name }}-prometheus-server:9464"
         tls:
           insecure: true
     service:
       pipelines:
         metrics:
-          exporters: [debug,otlp]
+          exporters: [debug,otlphttp]
           processors: [batch]
           receivers: [otlp]
