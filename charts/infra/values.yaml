@@ -69,11 +69,13 @@ opentelemetry-collector:
   presets:
     kubernetesAttributes:
       enabled: true
+    hostMetrics:
+      enabled: false
   service:
     type: ClusterIP
   ports:
     metrics:
-      enabled: true
+      enabled: false
     prometheus:
       enabled: false
   config:
@@ -85,13 +87,16 @@ opentelemetry-collector:
     exporters:
       debug:
         verbosity: detailed
-      otlp:
-        endpoint: "{{ .Release.Name }}-prometheus-server:9090"
+      otlphttp/prometheus:
+        endpoint: 'http://{{ .Release.Name }}-prometheus-server:9090/api/v1/otlp'
         tls:
           insecure: true
+      # otlp:
+      #   endpoint: "{{ .Release.Name }}-prometheus-server:9090"
+      #   tls:
+      #     insecure: true
     service:
       pipelines:
         metrics:
-          exporters: [debug,otlp]
-          processors: [batch]
           receivers: [otlp]
+          exporters: [otlphttp/prometheus, debug]
