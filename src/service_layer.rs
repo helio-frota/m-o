@@ -18,7 +18,7 @@ pub async fn service_stuff() {
         ],
     );
 
-    let duration = Duration::from_millis(300);
+    let duration = Duration::from_millis(200);
     sleep(duration).await;
     db_stuff().await;
 }
