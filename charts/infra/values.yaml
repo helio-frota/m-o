@@ -82,14 +82,14 @@ opentelemetry-collector:
       enabled: true
   service:
     type: ClusterIP
-  ports:
-    metrics:
-      enabled: true
-    prometheus:
-      enabled: true
-      containerPort: 9464
-      servicePort: 9464
-      protocol: TCP
+  # ports:
+  #   metrics:
+  #     enabled: true
+  #   prometheus:
+  #     enabled: true
+  #     containerPort: 9464
+  #     servicePort: 9464
+  #     protocol: TCP
   config:
     receivers:
       otlp:
@@ -97,6 +97,8 @@ opentelemetry-collector:
           grpc:
             endpoint: ${env:MY_POD_IP}:4317
     exporters:
+      debug:
+        verbosity: detailed
       otlphttp:
         endpoint: "{{ .Release.Name }}-prometheus-server:9464"
         tls:
