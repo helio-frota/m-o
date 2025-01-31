@@ -13,6 +13,8 @@ prometheus:
   prometheus-pushgateway:
     enabled: false
   server:
+    extraFlags:
+      - "web.enable-otlp-receiver" # https://github.com/open-telemetry/opentelemetry-helm-charts/pull/1462 and https://prometheus.io/docs/guides/opentelemetry/
     global:
       scrape_interval: 5s
       scrape_timeout: 3s
@@ -20,10 +22,28 @@ prometheus:
     prometheus.yml:
       otlp:
         keep_identifying_resource_attributes: true
+        promote_resource_attributes:
+          - service.instance.id
+          - service.name
+          - service.namespace
+          - cloud.availability_zone
+          - cloud.region
+          - container.name
+          - deployment.environment.name
+          - k8s.cluster.name
+          - k8s.container.name
+          - k8s.cronjob.name
+          - k8s.daemonset.name
+          - k8s.deployment.name
+          - k8s.job.name
+          - k8s.namespace.name
+          - k8s.pod.name
+          - k8s.replicaset.name
+          - k8s.statefulset.name
     persistentVolume:
       enabled: false
     service:
-      servicePort: 9464
+      servicePort: 9090
   serverFiles:
     prometheus.yml:
       scrape_configs:
@@ -51,14 +71,11 @@ opentelemetry-collector:
       enabled: true
   service:
     type: ClusterIP
-  # ports:
-  #   metrics:
-  #     enabled: true
-  #   prometheus:
-  #     enabled: true
-  #     containerPort: 9464
-  #     servicePort: 9464
-  #     protocol: TCP
+  ports:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: false
   config:
     receivers:
       otlp:
@@ -68,13 +85,13 @@ opentelemetry-collector:
     exporters:
       debug:
         verbosity: detailed
-      otlphttp:
-        endpoint: "{{ .Release.Name }}-prometheus-server:9464"
+      otlp:
+        endpoint: "{{ .Release.Name }}-prometheus-server:9090"
         tls:
           insecure: true
     service:
       pipelines:
         metrics:
-          exporters: [debug,otlphttp]
+          exporters: [debug,otlp]
           processors: [batch]
           receivers: [otlp]
