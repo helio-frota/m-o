@@ -44,15 +44,16 @@ prometheus:
       enabled: false
     service:
       servicePort: 9090
-  serverFiles:
-    prometheus.yml:
-      scrape_configs:
-        - job_name: "infra-otelcol"
-          honor_labels: true
-          kubernetes_sd_configs:
-            - role: pod
-              namespaces:
-                own_namespace: true
+  # We are sending the metrics instead of scrape-ing
+  # serverFiles:
+  #   prometheus.yml:
+  #     scrape_configs:
+  #       - job_name: "infra-otelcol"
+  #         honor_labels: true
+  #         kubernetes_sd_configs:
+  #           - role: pod
+  #             namespaces:
+  #               own_namespace: true
 
 env:
   - name: MY_POD_IP
