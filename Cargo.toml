@@ -5,14 +5,11 @@ edition = "2021"
 
 [dependencies]
 actix-web = "4"
-
-actix-web-opentelemetry = { version = "0.20", features = ["metrics"] }
-
+actix-web-opentelemetry = { version = "0.22", features = ["metrics"] }
 env_logger = "0.11"
 log = "0.4"
-
-opentelemetry = "0.27"
-opentelemetry-otlp = { version = "0.27", features = ["metrics"] }
-opentelemetry_sdk = { version = "0.27", features = ["metrics", "rt-tokio-current-thread"] }
-
-tokio = { version = "1.43.0", features = ["full"] }
+opentelemetry = "0.29"
+opentelemetry-otlp = { version = "0.29", features = ["metrics", "grpc-tonic"] }
+opentelemetry-stdout = "0.29"
+opentelemetry_sdk = { version = "0.29", features = ["metrics", "rt-tokio-current-thread"] }
+tokio = { version = "1.44", features = ["full"] }
