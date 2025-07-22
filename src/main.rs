@@ -1,4 +1,5 @@
 use actix_web::{App, HttpRequest, HttpServer, web};
+use opentelemetry_instrumentation_actix_web::RequestMetrics;
 
 // use std::sync::Once;
 
@@ -8,7 +9,6 @@ mod db_layer;
 mod service_layer;
 use crate::service_layer::service_stuff;
 
-use actix_web_opentelemetry::RequestMetrics;
 // use actix_web_opentelemetry::{PrometheusMetricsHandler, RequestMetrics};
 
 async fn hello(_req: HttpRequest) -> &'static str {

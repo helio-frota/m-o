@@ -1,6 +1,6 @@
 FROM registry.access.redhat.com/ubi9/ubi:latest
 
-ARG RUST_VERSION="1.84.0"
+ARG RUST_VERSION="1.87.0"
 
 RUN dnf install -y gcc openssl openssl-devel cmake gcc-c++ git curl-minimal
 

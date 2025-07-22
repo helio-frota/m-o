@@ -24,7 +24,6 @@ pub fn init_metrics(name: &str) {
 }
 
 pub fn basic_counter(name: &str, description: &str) -> Counter<u64> {
-    // TODO: Figure out how to remove hard-coded app name
     let meter = global::meter("m-o");
     let counter = meter
         .u64_counter(name.to_string())
