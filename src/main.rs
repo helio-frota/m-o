@@ -1,6 +1,6 @@
 use actix_web::{App, HttpRequest, HttpServer, web};
+use actix_web_static_files::ResourceFiles;
 use opentelemetry_instrumentation_actix_web::RequestMetrics;
-
 // use std::sync::Once;
 
 mod otel;
@@ -17,6 +17,7 @@ async fn hello(_req: HttpRequest) -> &'static str {
 }
 
 // static INIT: Once = Once::new();
+include!(concat!(env!("OUT_DIR"), "/generated.rs"));
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -25,13 +26,15 @@ async fn main() -> std::io::Result<()> {
     init_metrics("m-o");
 
     HttpServer::new(|| {
+        let generated = generate();
         App::new()
             .wrap(RequestMetrics::default())
             // .route(
             //     "/metrics",
             //     web::get().to(PrometheusMetricsHandler::new(registry.clone())),
             // )
-            .service(web::resource("/").to(hello))
+            .service(ResourceFiles::new("/", generated).resolve_not_found_to(""))
+        // .service(web::resource("/").to(hello))
     })
     .bind(("0.0.0.0", 8080))?
     .run()
